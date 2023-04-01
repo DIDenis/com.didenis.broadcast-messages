@@ -1,0 +1,14 @@
+{
+  "name": "com.didenis.broadcastmessages",
+  "version": "1.0.0",
+  "displayName": "Broadcast Messages",
+  "unity": "2021.3",
+  "description": "Implements simple broadcast of messages between your classes",
+  "documentationUrl": "https://github.com/DIDenis/com.didenis.broadcast-messages#how-to-use",
+  "licensesUrl": "https://github.com/DIDenis/com.didenis.broadcast-messages/blob/master/LICENSE.md",
+  "changelogUrl": "https://github.com/DIDenis/com.didenis.broadcast-messages/blob/master/CHANGELOG.md",
+  "author": {
+    "name": "Denis",
+    "email": "denisdmitriev7851@gmail.com"
+  }
+}
