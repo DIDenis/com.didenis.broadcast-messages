@@ -81,9 +81,9 @@ To get a messages in your classes they must be
 subscribed to receive of this messages.
 Then they can unsubscribes from broadcast
 ````c#
-public class FirstYourClass {
+public class FirstYourClass : MonoBehaviour {
     
-    public FirstYourClass () {
+    private void Awake () {
         Messenger.SubscribeTo<SomeMessage>(DoSomething);
         Messenger.SubscribeTo<MessageWith1Arg>(DoSomething);
     }
@@ -91,22 +91,27 @@ public class FirstYourClass {
     
     private void DoSomething (SomeMessage message) {
         // do anything...
-        Messenger.UnsubscribeFrom<SomeMessage>(DoSomething);
     }
     
     
     private void DoSomething (MessageWith1Arg message) {
         if (message.arg is not null) {
             // do anything...
-            Messenger.UnsubscribeFrom<MessageWith1Arg>(DoSomething);
         }
     }
+    
+    
+    private void OnDestroy () {
+        Messenger.UnsubscribeFrom<SomeMessage>(DoSomething);
+        Messenger.UnsubscribeFrom<MessageWith1Arg>(DoSomething);
+    }
+    
 }
 ````
 ````c#
-public class SecondYourClass {
+public class SecondYourClass : MonoBehaviour {
     
-    public SecondYourClass () {
+    private void Awake () {
         Messenger.SubscribeTo<SomeMessage>(DoSomething);
         Messenger.SubscribeTo<MessageWith2Args>(DoSomething);
     }
@@ -114,15 +119,19 @@ public class SecondYourClass {
     
     private void DoSomething (SomeMessage message) {
         // do anything...
-        Messenger.UnsubscribeFrom<SomeMessage>(DoSomething);
     }
     
     
     private void DoSomething (MessageWith2Args message) {
         if (message.arg1 is message.arg2) {
             // do anything...
-            Messenger.UnsubscribeFrom<MessageWith2Args>(DoSomething);
         }
+    }
+    
+    
+    private void OnDestroy () {
+        Messenger.UnsubscribeFrom<SomeMessage>(DoSomething);
+        Messenger.UnsubscribeFrom<MessageWith2Args>(DoSomething);
     }
 }
 ````
