@@ -16,7 +16,7 @@ namespace Plugins.DIDenis.BroadcastMessages.Tests.Editor {
         private void GetMessage (TestMessage message) {
             if (message.value != string.Empty)
                 DidGetMessage = true;
-            Debug.Log($"{nameof(Recipient)} получил сообщение: {message.value}");
+            Debug.Log($"{nameof(Recipient)} got message: {message.value}");
             Messenger.UnsubscribeFrom<TestMessage>(GetMessage);
         }
 

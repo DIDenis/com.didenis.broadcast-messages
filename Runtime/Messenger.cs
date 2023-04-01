@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BroadcastMessages {
 
     /// <summary>
-    /// Мессенджер для рассылки <see cref="Message">сообщений</see> всем подписавшимся на рассылку
+    /// Messenger for sending of <see cref="Message">messages</see> to all subscribers
     /// </summary>
     public static class Messenger {
 
@@ -16,20 +16,20 @@ namespace BroadcastMessages {
         #region Subscription
 
         /// <summary>
-        /// Добавляет подписчика к рассылке
+        /// Adds subscriber to sending
         /// </summary>
-        /// <param name="subscriber">Подписчик с параметрами</param>
-        /// <typeparam name="T">Тип сообщения, рассылаемого подписчикам</typeparam>
+        /// <param name="subscriber">Subscriber with parameters</param>
+        /// <typeparam name="T">Type of message for sending to subscribers</typeparam>
         public static void SubscribeTo<T> (Action<T> subscriber) where T : Message {
             Subscribers<T>.Container.Add(subscriber);
         }
 
 
         /// <summary>
-        /// Добавляет подписчика к рассылке
+        /// Adds subscriber to sending
         /// </summary>
-        /// <param name="subscriber">Подписчик без параметров</param>
-        /// <typeparam name="T">Тип сообщения, рассылаемого подписчикам</typeparam>
+        /// <param name="subscriber">Subscriber without parameters</param>
+        /// <typeparam name="T">Type of message for sending to subscribers</typeparam>
         public static void SubscribeTo<T> (Action subscriber) where T : Message {
             var messageType = typeof(T);
             if (!Subscribers.Container.ContainsKey(messageType))
@@ -44,15 +44,15 @@ namespace BroadcastMessages {
         #region Unsubscription
 
         /// <summary>
-        /// Отписывает подписчика от рассылки
+        /// Removes subscriber from sending
         /// </summary>
-        /// <param name="subscriber">Подписчик с параметрами</param>
-        /// <typeparam name="T">Тип сообщения, рассылаемого подписчикам</typeparam>
+        /// <param name="subscriber">Subscriber with parameters</param>
+        /// <typeparam name="T">Type of message for sending to subscribers</typeparam>
         public static void UnsubscribeFrom<T> (Action<T> subscriber) where T : Message {
             if (!Subscribers<T>.Container.Contains(subscriber)) {
                 Debug.LogWarning(
-                    $"{MESSAGE_HEADER} Подписчик <b> {subscriber.Method.Name} </b> " +
-                    $"не подписывался на сообщение <b> {typeof(T).Name} </b>");
+                    $"{MESSAGE_HEADER} Subscriber <b> {subscriber.Method.Name} </b> " +
+                    $"is not subscribe to message <b> {typeof(T).Name} </b>");
                 return;
             }
 
@@ -61,24 +61,24 @@ namespace BroadcastMessages {
 
 
         /// <summary>
-        /// Отписывает подписчика от рассылки
+        /// Removes subscriber from sending
         /// </summary>
-        /// <param name="subscriber">Подписчик без параметров</param>
-        /// <typeparam name="T">Тип сообщения, рассылаемого подписчикам</typeparam>
+        /// <param name="subscriber">Subscriber without parameters</param>
+        /// <typeparam name="T">Type of message for sending to subscribers</typeparam>
         public static void UnsubscribeFrom<T> (Action subscriber) where T : Message {
             var messageType = typeof(T);
 
             if (!Subscribers.Container.ContainsKey(messageType)) {
                 Debug.LogWarning(
-                    $"{MESSAGE_HEADER} На рассылку сообщения " +
-                    $"<b> {messageType.Name} </b> никто не подписался");
+                    $"{MESSAGE_HEADER} Nobody subscribe to message " +
+                    $"<b> {messageType.Name} </b> ");
                 return;
             }
 
             if (!Subscribers.Container[messageType].Contains(subscriber)) {
                 Debug.LogWarning(
-                    $"{MESSAGE_HEADER} Подписчик <b> {subscriber.Method.Name} </b> " +
-                    $"не подписывался на сообщение <b> {messageType.Name} </b>");
+                    $"{MESSAGE_HEADER} Subscriber <b> {subscriber.Method.Name} </b> " +
+                    $"is not subscribe to message <b> {messageType.Name} </b>");
                 return;
             }
 
@@ -92,7 +92,7 @@ namespace BroadcastMessages {
         #region Sending
 
         /// <summary>
-        /// Рассылает сообщение всем подписчикам
+        /// Sends message to all subscribers
         /// </summary>
         /// <param name="message"></param>
         public static void SendMessage<T> (T message) where T : Message {
@@ -109,7 +109,7 @@ namespace BroadcastMessages {
 
 
         /// <summary>
-        /// Рассылает сообщение всем подписчикам
+        /// Sends message to all subscribers
         /// </summary>
         public static void SendMessage<T> () where T : Message {
             var messageType = typeof(T);
@@ -134,8 +134,8 @@ namespace BroadcastMessages {
 
         private static void SendLogInDebugConsole (Type type) {
             var logMessage =
-                $"{MESSAGE_HEADER} Сообщение <b> {type.Name} </b> " +
-                "было отправлено, но его никто не получил";
+                $"{MESSAGE_HEADER} Message <b> {type.Name} </b> " +
+                "was sent, but nobody doesn't get it";
             Debug.LogWarning(logMessage);
         }
 
@@ -144,7 +144,7 @@ namespace BroadcastMessages {
 
 
         /// <summary>
-        /// Хранит в себе подписчиков с параметрами
+        /// Keeps in itself subscribers with patameters
         /// </summary>
         /// <typeparam name="T">Тип сообщения, отправляемый подписчикам</typeparam>
         private static class Subscribers<T> {
@@ -156,7 +156,7 @@ namespace BroadcastMessages {
 
 
         /// <summary>
-        /// Хранит в себе подписчиков без параметров
+        /// Keeps in itself subscribers without patameters
         /// </summary>
         private static class Subscribers {
 

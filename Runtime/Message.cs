@@ -1,7 +1,7 @@
 ﻿namespace BroadcastMessages {
 
     /// <summary>
-    /// Базовый класс для всех видов сообщений, рассылаемых <see cref="Messenger">мессенджером</see>
+    /// Base class for all types of messages sent by the <see cref="Messenger">messenger</see>
     /// </summary>
     public abstract class Message { }
 
