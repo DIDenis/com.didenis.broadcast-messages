@@ -4,27 +4,27 @@
 
 1. Click on the green button "Code"
 
-![](docs~/Screenshot_1.png)
+    ![](docs~/Screenshot_1.png)
 
 2. Then click on copy button, in "HTTPS" tab
 
-![](docs~/Screenshot_3.png)
+    ![](docs~/Screenshot_3.png)
 
 3. In Unity open the Package Manager window (Window/Package Manager)
 
-![](docs~/Screenshot_6.png)
+    ![](docs~/Screenshot_6.png)
 
 4. Then click on plus sign and select "Add package from git URL"
 
-![](docs~/Screenshot_2.png)
+    ![](docs~/Screenshot_2.png)
 
 5. Insert copied link and click on "Add"
 
-![](docs~/Screenshot_4.png)
+    ![](docs~/Screenshot_4.png)
 
 6. After sometime this package will be add to your project
 
-![](docs~/Screenshot_5.png)
+    ![](docs~/Screenshot_5.png)
 
 ## How to use
 
