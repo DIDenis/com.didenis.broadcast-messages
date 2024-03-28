@@ -1,14 +1,11 @@
 {
-    "name": "BroadcastMessages.Editor.Tests",
-    "rootNamespace": "",
+    "name": "BroadcastMessages.Tests",
+    "rootNamespace": "BroadcastMessages.Tests",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner",
         "BroadcastMessages"
     ],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,

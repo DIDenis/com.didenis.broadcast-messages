@@ -1,8 +1,7 @@
 using System;
 using NUnit.Framework;
-using UnityEngine;
 
-namespace Plugins.DIDenis.BroadcastMessages.Tests.Editor {
+namespace BroadcastMessages.Tests {
 
     public class SendMessageTest {
 

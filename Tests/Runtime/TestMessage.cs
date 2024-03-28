@@ -1,8 +1,6 @@
-﻿using BroadcastMessages;
+﻿namespace BroadcastMessages.Tests {
 
-namespace Plugins.DIDenis.BroadcastMessages.Tests.Editor {
-
-    public class TestMessage : Message {
+    public struct TestMessage {
 
         public readonly string value;
 

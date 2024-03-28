@@ -1,12 +1,11 @@
-﻿using BroadcastMessages;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Plugins.DIDenis.BroadcastMessages.Tests.Editor {
+namespace BroadcastMessages.Tests {
 
     public class Sender {
 
         public void SendMessage (string message) {
-            Messenger.SendMessage(new TestMessage(message));
+            Orchestrator.Send(new TestMessage(message));
             Debug.Log($"{nameof(Sender)} sent message: {message}");
         }
 
