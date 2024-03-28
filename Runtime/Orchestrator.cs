@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Object = UnityEngine.Object;
 
 namespace BroadcastMessages {
 
@@ -56,6 +57,8 @@ namespace BroadcastMessages {
 
 
             public static void Add (IRecipient<TMessage> recipient) {
+                if (Recipients.Contains(recipient))
+                    return;
                 Recipients.Add(recipient);
             }
 
@@ -66,6 +69,9 @@ namespace BroadcastMessages {
 
 
             public static void Send (TMessage message) {
+                Recipients.RemoveAll(recipient =>
+                    recipient == null || recipient is Object unityRecipient && unityRecipient == null
+                );
                 Sending = true;
                 foreach (IRecipient<TMessage> recipient in Recipients)
                     recipient.GetMessage(message);
