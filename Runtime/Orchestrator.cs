@@ -13,12 +13,15 @@ namespace BroadcastMessages {
         /// Adds subscriber to sending
         /// </summary>
         /// <param name="recipient">Subscriber with parameters</param>
+        /// <param name="oneTimeSubscription"></param>
         /// <typeparam name="TMessage">Type of message for sending to subscribers</typeparam>
-        public static void Subscribe<TMessage> (IRecipient<TMessage> recipient) where TMessage : struct {
+        public static void Subscribe<TMessage> (IRecipient<TMessage> recipient, bool oneTimeSubscription = false)
+            where TMessage : struct {
             if (Subscribers<TMessage>.Sending)
-                Subscribers<TMessage>.OnCompleteSending += () => Subscribers<TMessage>.Add(recipient);
+                Subscribers<TMessage>.OnCompleteSending +=
+                    () => Subscribers<TMessage>.Add(recipient, oneTimeSubscription);
             else
-                Subscribers<TMessage>.Add(recipient);
+                Subscribers<TMessage>.Add(recipient, oneTimeSubscription);
         }
 
 
@@ -51,30 +54,38 @@ namespace BroadcastMessages {
         /// <typeparam name="TMessage">Тип сообщения, отправляемый подписчикам</typeparam>
         private static class Subscribers<TMessage> where TMessage : struct {
 
-            private static readonly List<IRecipient<TMessage>> Recipients = new();
+            private static readonly List<(IRecipient<TMessage>, bool)> Data = new();
             public static event Action OnCompleteSending;
             public static bool Sending { get; private set; }
 
 
-            public static void Add (IRecipient<TMessage> recipient) {
-                if (Recipients.Contains(recipient))
-                    return;
-                Recipients.Add(recipient);
+            public static void Add (IRecipient<TMessage> recipient, bool oneTimeSubscription) {
+                Data.Add((recipient, oneTimeSubscription));
             }
 
 
             public static void Remove (IRecipient<TMessage> recipient) {
-                Recipients.Remove(recipient);
+                foreach ((IRecipient<TMessage>, bool) tuple in Data) {
+                    if (tuple.Item1 == recipient) {
+                        Data.Remove(tuple);
+                        break;
+                    }
+                }
             }
 
 
             public static void Send (TMessage message) {
-                Recipients.RemoveAll(recipient =>
-                    recipient == null || recipient is Object unityRecipient && unityRecipient == null
+                Data.RemoveAll(data =>
+                    data.Item1 == null || data.Item1 is Object unityRecipient && unityRecipient == null
                 );
                 Sending = true;
-                foreach (IRecipient<TMessage> recipient in Recipients)
-                    recipient.GetMessage(message);
+
+                foreach ((IRecipient<TMessage>, bool) valueTuple in Data) {
+                    valueTuple.Item1.GetMessage(message);
+                    if (valueTuple.Item2)
+                        Data.Remove((valueTuple.Item1, true));
+                }
+
                 Sending = false;
 
                 OnCompleteSending?.Invoke();
