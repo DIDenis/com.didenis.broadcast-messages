@@ -78,13 +78,15 @@ namespace BroadcastMessages {
                 Data.RemoveAll(data =>
                     data.Item1 == null || data.Item1 is Object unityRecipient && unityRecipient == null
                 );
+
                 Sending = true;
 
-                foreach ((IRecipient<TMessage>, bool) valueTuple in Data) {
-                    valueTuple.Item1.GetMessage(message);
-                    if (valueTuple.Item2)
-                        Data.Remove((valueTuple.Item1, true));
-                }
+                foreach ((IRecipient<TMessage> recipient, bool _) in Data)
+                    recipient.GetMessage(message);
+
+                for (var i = 0; i < Data.Count; i++)
+                    if (Data[i].Item2)
+                        Data.RemoveAt(i);
 
                 Sending = false;
 
