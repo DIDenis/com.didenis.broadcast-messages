@@ -1,6 +1,6 @@
 {
   "name": "com.dducode.broadcastmessages",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "displayName": "Broadcast Messages",
   "unity": "2021.3",
   "description": "Implements simple broadcast of messages between your classes",
@@ -8,7 +8,7 @@
   "licensesUrl": "https://github.com/dducode/com.didenis.broadcast-messages/blob/master/LICENSE.md",
   "changelogUrl": "https://github.com/dducode/com.didenis.broadcast-messages/blob/master/CHANGELOG.md",
   "author": {
-    "name": "Denis",
-    "email": "denisdmitriev7851@gmail.com"
+    "name": "dducode",
+    "email": "dducode98@gmail.com"
   }
 }
